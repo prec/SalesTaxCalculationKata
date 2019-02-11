@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesTaxCalculationKata.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesTaxCalcuationKata.Core.Tests", "SalesTaxCalcuationKata.Core.Tests\SalesTaxCalcuationKata.Core.Tests.csproj", "{30E1E996-FEB3-4470-B3DF-CFCB596A5689}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesTaxCalculationKata.Data", "SalesTaxCalculationKata.Data\SalesTaxCalculationKata.Data.csproj", "{5719E0C6-AB46-46F9-B80B-FC96EE4F0A00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{30E1E996-FEB3-4470-B3DF-CFCB596A5689}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30E1E996-FEB3-4470-B3DF-CFCB596A5689}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30E1E996-FEB3-4470-B3DF-CFCB596A5689}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5719E0C6-AB46-46F9-B80B-FC96EE4F0A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5719E0C6-AB46-46F9-B80B-FC96EE4F0A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5719E0C6-AB46-46F9-B80B-FC96EE4F0A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5719E0C6-AB46-46F9-B80B-FC96EE4F0A00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
