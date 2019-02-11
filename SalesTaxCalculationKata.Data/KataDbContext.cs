@@ -18,6 +18,13 @@ namespace SalesTaxCalculationKata.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var dataProvider = new SeedDataProvider();
+
+            modelBuilder.Entity<ProductCategory>().HasData(dataProvider.GetProductCategories());
+            modelBuilder.Entity<Tax>().HasData(dataProvider.GetTaxes());
+            modelBuilder.Entity<Product>().HasData(dataProvider.GetProductData());
+            modelBuilder.Entity<TaxExemption>().HasData(dataProvider.GetTaxExemptions());
+
             base.OnModelCreating(modelBuilder);
         }
     }

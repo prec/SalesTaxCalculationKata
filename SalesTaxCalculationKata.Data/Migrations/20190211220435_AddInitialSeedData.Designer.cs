@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SalesTaxCalculationKata.Data;
 
 namespace SalesTaxCalculationKata.Data.Migrations
 {
     [DbContext(typeof(KataDbContext))]
-    partial class KataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190211220435_AddInitialSeedData")]
+    partial class AddInitialSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
