@@ -11,7 +11,7 @@ namespace SalesTaxCalculationKata.Core.Tests
             {
                 Description = "Music CD",
                 Price = 14.99m,
-                ProductCategories = new List<CategoryModel>
+                Categories = new List<CategoryModel>
                 {
                     new CategoryModel
                     {
@@ -31,7 +31,7 @@ namespace SalesTaxCalculationKata.Core.Tests
             {
                 Description = "Imported Bottle of Perfume",
                 Price = 47.50m,
-                ProductCategories = new List<CategoryModel>
+                Categories = new List<CategoryModel>
                 {
                     new CategoryModel
                     {
@@ -55,7 +55,7 @@ namespace SalesTaxCalculationKata.Core.Tests
             {
                 Description = "Imported Box of Chocolates",
                 Price = 10m,
-                ProductCategories = new List<CategoryModel>
+                Categories = new List<CategoryModel>
                 {
                     new CategoryModel
                     {
@@ -79,7 +79,7 @@ namespace SalesTaxCalculationKata.Core.Tests
             {
                 Description = "Book",
                 Price = 12.49m,
-                ProductCategories = new List<CategoryModel>
+                Categories = new List<CategoryModel>
                 {
                     new CategoryModel
                     {
