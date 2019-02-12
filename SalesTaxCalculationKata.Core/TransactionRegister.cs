@@ -32,19 +32,30 @@ namespace SalesTaxCalculationKata.Core
 
             var orderItem = new OrderItemModel
             {
-                Product = product,
+                ProductId = product.ProductId,
+                ProductPrice = product.Price,
+                ProductDescription = product.Description,
                 SalesTax = totalTax
             };
 
             order.OrderItems.Add(orderItem);
+
+            order = CalculateOrderTotals(order);
+
+            return order;
+        }
+
+        private static OrderModel CalculateOrderTotals(OrderModel order)
+        {
+            order.SalesTaxTotal = order.OrderItems.Sum(oi => oi.SalesTax);
+            order.GrandTotal = order.OrderItems.Sum(oi => oi.ProductPrice) + order.SalesTaxTotal;
 
             return order;
         }
 
         public OrderModel CompleteOrder(OrderModel order)
         {
-            order.SalesTaxTotal = order.OrderItems.Sum(oi => oi.SalesTax);
-            order.GrandTotal = order.OrderItems.Sum(oi => oi.Product.Price) + order.SalesTaxTotal;
+            order = CalculateOrderTotals(order);
             order.IsComplete = true;
 
             return order;
@@ -53,8 +64,8 @@ namespace SalesTaxCalculationKata.Core
         private decimal CalculateTax(ProductModel product)
         {
             var applicableTaxes = from t in _taxes
-                join tc in _taxCategories on t.TaxId equals tc.Tax.TaxId
-                join pc in product.Categories on tc.Category.CategoryId equals pc.CategoryId
+                join tc in _taxCategories on t.TaxId equals tc.TaxId
+                join pc in product.Categories on tc.CategoryId equals pc.CategoryId
                 select t;
 
             var totalTax = applicableTaxes.Sum(tax => product.Price * tax.Rate);

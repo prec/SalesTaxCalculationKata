@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SalesTaxCalculationKata.Core.Models;
 using SalesTaxCalculationKata.Data;
 using SalesTaxCalculationKata.Data.Models;
 
@@ -15,22 +17,24 @@ namespace SalesTaxCalculationKata.Api.Controllers
     public class TaxCategoriesController : ControllerBase
     {
         private readonly KataDbContext _context;
+        private readonly IMapper _mapper;
 
-        public TaxCategoriesController(KataDbContext context)
+        public TaxCategoriesController(KataDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/TaxCategories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TaxCategory>>> GetTaxCategories()
+        public async Task<ActionResult<IEnumerable<TaxCategoryModel>>> GetTaxCategories()
         {
-            return await _context.TaxCategories.ToListAsync();
+            return await _context.TaxCategories.Select(tc => _mapper.Map<TaxCategoryModel>(tc)).ToListAsync();
         }
 
         // GET: api/TaxCategories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TaxCategory>> GetTaxCategory(int id)
+        public async Task<ActionResult<TaxCategoryModel>> GetTaxCategory(int id)
         {
             var taxCategory = await _context.TaxCategories.FindAsync(id);
 
@@ -39,13 +43,15 @@ namespace SalesTaxCalculationKata.Api.Controllers
                 return NotFound();
             }
 
-            return taxCategory;
+            return _mapper.Map<TaxCategoryModel>(taxCategory);
         }
 
         // PUT: api/TaxCategories/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTaxCategory(int id, TaxCategory taxCategory)
+        public async Task<IActionResult> PutTaxCategory(int id, TaxCategoryModel taxCategoryModel)
         {
+            var taxCategory = _mapper.Map<TaxCategory>(taxCategoryModel);
+
             if (id != taxCategory.TaxCategoryId)
             {
                 return BadRequest();
@@ -74,8 +80,10 @@ namespace SalesTaxCalculationKata.Api.Controllers
 
         // POST: api/TaxCategories
         [HttpPost]
-        public async Task<ActionResult<TaxCategory>> PostTaxCategory(TaxCategory taxCategory)
+        public async Task<ActionResult<TaxCategoryModel>> PostTaxCategory(TaxCategoryModel taxCategoryModel)
         {
+            var taxCategory = _mapper.Map<TaxCategory>(taxCategoryModel);
+
             _context.TaxCategories.Add(taxCategory);
             await _context.SaveChangesAsync();
 
@@ -84,7 +92,7 @@ namespace SalesTaxCalculationKata.Api.Controllers
 
         // DELETE: api/TaxCategories/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TaxCategory>> DeleteTaxCategory(int id)
+        public async Task<ActionResult<TaxCategoryModel>> DeleteTaxCategory(int id)
         {
             var taxCategory = await _context.TaxCategories.FindAsync(id);
             if (taxCategory == null)
@@ -95,7 +103,7 @@ namespace SalesTaxCalculationKata.Api.Controllers
             _context.TaxCategories.Remove(taxCategory);
             await _context.SaveChangesAsync();
 
-            return taxCategory;
+            return _mapper.Map<TaxCategoryModel>(taxCategory);
         }
 
         private bool TaxCategoryExists(int id)

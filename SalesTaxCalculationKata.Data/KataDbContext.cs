@@ -12,14 +12,13 @@ namespace SalesTaxCalculationKata.Data
         public DbSet<Tax> Taxes { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-        
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=SalesTaxCalculationKata;Trusted_Connection=True;");
-            base.OnConfiguring(optionsBuilder);
-        }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(
+                    @"Server=(localdb)\MSSQLLocalDB;Database=SalesTaxCalculationKata;Trusted_Connection=True;");
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             SetupProductCategoryJoinTable(modelBuilder);

@@ -3,7 +3,7 @@
     public class TaxCategoryModel
     {
         public int TaxCategoryId { get; set; }
-        public CategoryModel Category { get; set; }
-        public TaxModel Tax { get; set; }
+        public int CategoryId { get; set; }
+        public int TaxId { get; set; }
     }
 }

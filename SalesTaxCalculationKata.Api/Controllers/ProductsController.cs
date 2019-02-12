@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SalesTaxCalculationKata.Core.Models;
 using SalesTaxCalculationKata.Data;
 using SalesTaxCalculationKata.Data.Models;
 
@@ -15,22 +17,24 @@ namespace SalesTaxCalculationKata.Api.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly KataDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ProductsController(KataDbContext context)
+        public ProductsController(KataDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductModel>>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products.Select(p => _mapper.Map<ProductModel>(p)).ToListAsync();
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<ProductModel>> GetProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
 
@@ -39,13 +43,15 @@ namespace SalesTaxCalculationKata.Api.Controllers
                 return NotFound();
             }
 
-            return product;
+            return _mapper.Map<ProductModel>(product);
         }
 
         // PUT: api/Products/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> PutProduct(int id, ProductModel productModel)
         {
+            var product = _mapper.Map<Product>(productModel);
+
             if (id != product.ProductId)
             {
                 return BadRequest();
@@ -74,8 +80,10 @@ namespace SalesTaxCalculationKata.Api.Controllers
 
         // POST: api/Products
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<ProductModel>> PostProduct(ProductModel productModel)
         {
+            var product = _mapper.Map<Product>(productModel);
+
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
@@ -84,7 +92,7 @@ namespace SalesTaxCalculationKata.Api.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id)
+        public async Task<ActionResult<ProductModel>> DeleteProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null)
@@ -95,7 +103,7 @@ namespace SalesTaxCalculationKata.Api.Controllers
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
 
-            return product;
+            return _mapper.Map<ProductModel>(product);
         }
 
         private bool ProductExists(int id)

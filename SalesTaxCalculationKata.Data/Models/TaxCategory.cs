@@ -7,8 +7,8 @@ namespace SalesTaxCalculationKata.Data.Models
     {
         public int TaxCategoryId { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
         public int TaxId { get; set; }
-        public Tax Tax { get; set; }
+        public virtual Tax Tax { get; set; }
     }
 }

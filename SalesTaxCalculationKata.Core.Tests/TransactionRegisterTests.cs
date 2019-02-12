@@ -143,45 +143,18 @@ namespace SalesTaxCalculationKata.Core.Tests
             {
                 new TaxCategoryModel
                 {
-                    Category = new CategoryModel
-                    {
-                        Description = "Cosmetics",
-                        CategoryId = 4
-                    },
-                    Tax = new TaxModel
-                    {
-                        Description = "Sales",
-                        Rate = 0.1m,
-                        TaxId = 1
-                    }
+                    CategoryId = 4,
+                    TaxId = 1
                 },
                 new TaxCategoryModel
                 {
-                    Category = new CategoryModel
-                    {
-                        Description = "Music",
-                        CategoryId = 5
-                    },
-                    Tax = new TaxModel
-                    {
-                        Description = "Sales",
-                        Rate = 0.1m,
-                        TaxId = 1
-                    }
+                    CategoryId = 5,
+                    TaxId = 1
                 },
                 new TaxCategoryModel
                 {
-                    Category = new CategoryModel
-                    {
-                        Description = "Import",
-                        CategoryId = 6
-                    },
-                    Tax = new TaxModel
-                    {
-                        Description = "Import",
-                        Rate = 0.05m,
-                        TaxId = 2
-                    }
+                    CategoryId = 6,
+                    TaxId = 2
                 }
             };
 

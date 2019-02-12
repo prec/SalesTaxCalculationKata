@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ namespace SalesTaxCalculationKata.Api.Controllers
     public class ProductCategoriesController : ControllerBase
     {
         private readonly KataDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ProductCategoriesController(KataDbContext context)
+        public ProductCategoriesController(KataDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/ProductCategories

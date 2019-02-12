@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SalesTaxCalculationKata.Core.Models;
 using SalesTaxCalculationKata.Data;
 using SalesTaxCalculationKata.Data.Models;
 
@@ -15,22 +17,24 @@ namespace SalesTaxCalculationKata.Api.Controllers
     public class TaxesController : ControllerBase
     {
         private readonly KataDbContext _context;
+        private readonly IMapper _mapper;
 
-        public TaxesController(KataDbContext context)
+        public TaxesController(KataDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Taxes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tax>>> GetTaxes()
+        public async Task<ActionResult<IEnumerable<TaxModel>>> GetTaxes()
         {
-            return await _context.Taxes.ToListAsync();
+            return await _context.Taxes.Select(t => _mapper.Map<TaxModel>(t)).ToListAsync();
         }
 
         // GET: api/Taxes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Tax>> GetTax(int id)
+        public async Task<ActionResult<TaxModel>> GetTax(int id)
         {
             var tax = await _context.Taxes.FindAsync(id);
 
@@ -39,13 +43,15 @@ namespace SalesTaxCalculationKata.Api.Controllers
                 return NotFound();
             }
 
-            return tax;
+            return _mapper.Map<TaxModel>(tax);
         }
 
         // PUT: api/Taxes/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTax(int id, Tax tax)
+        public async Task<IActionResult> PutTax(int id, TaxModel taxModel)
         {
+            var tax = _mapper.Map<Tax>(taxModel);
+
             if (id != tax.TaxId)
             {
                 return BadRequest();
@@ -74,8 +80,10 @@ namespace SalesTaxCalculationKata.Api.Controllers
 
         // POST: api/Taxes
         [HttpPost]
-        public async Task<ActionResult<Tax>> PostTax(Tax tax)
+        public async Task<ActionResult<TaxModel>> PostTax(TaxModel taxModel)
         {
+            var tax = _mapper.Map<Tax>(taxModel);
+
             _context.Taxes.Add(tax);
             await _context.SaveChangesAsync();
 
@@ -84,7 +92,7 @@ namespace SalesTaxCalculationKata.Api.Controllers
 
         // DELETE: api/Taxes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Tax>> DeleteTax(int id)
+        public async Task<ActionResult<TaxModel>> DeleteTax(int id)
         {
             var tax = await _context.Taxes.FindAsync(id);
             if (tax == null)
@@ -95,7 +103,7 @@ namespace SalesTaxCalculationKata.Api.Controllers
             _context.Taxes.Remove(tax);
             await _context.SaveChangesAsync();
 
-            return tax;
+            return _mapper.Map<TaxModel>(tax);
         }
 
         private bool TaxExists(int id)

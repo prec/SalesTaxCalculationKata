@@ -8,6 +8,6 @@ namespace SalesTaxCalculationKata.Data.Models
     {
         public int CategoryId { get; set; }
         public string Description { get; set; }
-        public ICollection<ProductCategory> ProductCategories { get; set; }
+        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
     }
 }

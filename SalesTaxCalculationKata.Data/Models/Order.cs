@@ -7,7 +7,7 @@ namespace SalesTaxCalculationKata.Data.Models
     public class Order
     {
         public int OrderId { get; set; }
-        public ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
         public decimal SalesTaxTotal { get; set; }
         public decimal GrandTotal { get; set; }
         public bool IsComplete { get; set; }
