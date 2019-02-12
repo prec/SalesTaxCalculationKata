@@ -2,13 +2,13 @@
 
 namespace SalesTaxCalculationKata.Data.Models
 {
-    [Table("ProductCategories")]
-    public class ProductCategory
+    [Table("TaxCategories")]
+    public class TaxCategory
     {
-        public int ProductCategoryId { get; set; }
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
+        public int TaxCategoryId { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public int TaxId { get; set; }
+        public Tax Tax { get; set; }
     }
 }

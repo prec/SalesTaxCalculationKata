@@ -12,73 +12,55 @@ namespace SalesTaxCalculationKata.Data
                 new Product
                 {
                     Description = "Book",
-                    IsImported = false,
                     Price = 12.49m,
-                    ProductCategoryId = 1,
                     ProductId = 1
                 },
                 new Product
                 {
                     Description = "Music CD",
-                    IsImported = false,
                     Price = 14.99m,
-                    ProductCategoryId = 5,
                     ProductId = 2
                 },
                 new Product
                 {
                     Description = "Chocolate Bar",
-                    IsImported = false,
                     Price = 0.85m,
-                    ProductCategoryId = 2,
                     ProductId = 3
                 },
                 new Product
                 {
                     Description = "Imported Box of Chocolates",
-                    IsImported = true,
                     Price = 10m,
-                    ProductCategoryId = 2,
                     ProductId = 4
                 },
                 new Product
                 {
                     Description = "Imported Bottle of Fancy Perfume",
-                    IsImported = true,
                     Price = 47.50m,
-                    ProductCategoryId = 4,
                     ProductId = 5
                 },
                 new Product
                 {
                     Description = "Imported Bottle of Perfume",
-                    IsImported = true,
                     Price = 27.99m,
-                    ProductCategoryId = 4,
                     ProductId = 6
                 },
                 new Product
                 {
                     Description = "Bottle of Perfume",
-                    IsImported = false,
                     Price = 18.99m,
-                    ProductCategoryId = 4,
                     ProductId = 7
                 },
                 new Product
                 {
                     Description = "Packet of Headache Pills",
-                    IsImported = false,
                     Price = 9.75m,
-                    ProductCategoryId = 3,
                     ProductId = 8
                 },
                 new Product
                 {
                     Description = "Imported Chocolates",
-                    IsImported = true,
                     Price = 11.25m,
-                    ProductCategoryId = 2,
                     ProductId = 9
                 }
             };
@@ -90,28 +72,118 @@ namespace SalesTaxCalculationKata.Data
             {
                 new ProductCategory
                 {
-                    Description = "Books",
+                    ProductId = 1,
+                    CategoryId = 1,
                     ProductCategoryId = 1
                 },
                 new ProductCategory
                 {
-                    Description = "Food",
+                    ProductId = 2,
+                    CategoryId = 5,
                     ProductCategoryId = 2
                 },
                 new ProductCategory
                 {
-                    Description = "Medical Products",
+                    ProductId = 3,
+                    CategoryId = 2,
                     ProductCategoryId = 3
                 },
                 new ProductCategory
                 {
-                    Description = "Cosmetics",
+                    ProductId = 4,
+                    CategoryId = 2,
                     ProductCategoryId = 4
                 },
                 new ProductCategory
                 {
-                    Description = "Music",
+                    ProductId = 4,
+                    CategoryId = 6,
                     ProductCategoryId = 5
+                },
+                new ProductCategory
+                {
+                    ProductId = 5,
+                    CategoryId = 4,
+                    ProductCategoryId = 6
+                },
+                new ProductCategory
+                {
+                    ProductId = 5,
+                    CategoryId = 6,
+                    ProductCategoryId = 7
+                },
+                new ProductCategory
+                {
+                    ProductId = 6,
+                    CategoryId = 4,
+                    ProductCategoryId = 8
+                },
+                new ProductCategory
+                {
+                    ProductId = 6,
+                    CategoryId = 6,
+                    ProductCategoryId = 9
+                },
+                new ProductCategory
+                {
+                    ProductId = 7,
+                    CategoryId = 4,
+                    ProductCategoryId = 10
+                },
+                new ProductCategory
+                {
+                    ProductId = 8,
+                    CategoryId = 3,
+                    ProductCategoryId = 11
+                },
+                new ProductCategory
+                {
+                    ProductId = 9,
+                    CategoryId = 2,
+                    ProductCategoryId = 12
+                },
+                new ProductCategory
+                {
+                    ProductId = 9,
+                    CategoryId = 6,
+                    ProductCategoryId = 13
+                }
+            };
+        }
+
+        public List<Category> GetCategories()
+        {
+            return new List<Category>
+            {
+                new Category
+                {
+                    Description = "Books",
+                    CategoryId = 1
+                },
+                new Category
+                {
+                    Description = "Food",
+                    CategoryId = 2
+                },
+                new Category
+                {
+                    Description = "Medical Products",
+                    CategoryId = 3
+                },
+                new Category
+                {
+                    Description = "Cosmetics",
+                    CategoryId = 4
+                },
+                new Category
+                {
+                    Description = "Music",
+                    CategoryId = 5
+                },
+                new Category
+                {
+                    Description = "Import",
+                    CategoryId = 6
                 }
             };
         }
@@ -135,27 +207,27 @@ namespace SalesTaxCalculationKata.Data
             };
         }
 
-        public List<TaxExemption> GetTaxExemptions()
+        public List<TaxCategory> GetTaxCategories()
         {
-            return new List<TaxExemption>
+            return new List<TaxCategory>
             {
-                new TaxExemption
+                new TaxCategory
                 {
-                    ProductCategoryId = 1,
+                    CategoryId = 4,
                     TaxId = 1,
-                    TaxExemptionId = 1
+                    TaxCategoryId = 1
                 },
-                new TaxExemption
+                new TaxCategory
                 {
-                    ProductCategoryId = 2,
+                    CategoryId = 5,
                     TaxId = 1,
-                    TaxExemptionId = 2
+                    TaxCategoryId = 2
                 },
-                new TaxExemption
+                new TaxCategory
                 {
-                    ProductCategoryId = 3,
-                    TaxId = 1,
-                    TaxExemptionId = 3
+                    CategoryId = 6,
+                    TaxId = 2,
+                    TaxCategoryId = 3
                 }
             };
         }

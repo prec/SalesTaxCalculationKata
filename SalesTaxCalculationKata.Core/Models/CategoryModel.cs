@@ -1,8 +1,8 @@
 ﻿namespace SalesTaxCalculationKata.Core.Models
 {
-    public class ProductCategoryModel
+    public class CategoryModel
     {
-        public int ProductCategoryId { get; set; }
+        public int CategoryId { get; set; }
         public string Description { get; set; }
     }
 }

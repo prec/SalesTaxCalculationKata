@@ -3,12 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalesTaxCalculationKata.Data.Models
 {
-    [Table("Products")]
-    public class Product
+    [Table("Categories")]
+    public class Category
     {
-        public int ProductId { get; set; }
+        public int CategoryId { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
         public ICollection<ProductCategory> ProductCategories { get; set; }
     }
 }
