@@ -48,6 +48,9 @@ namespace SalesTaxCalculationKata.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
+
             app.UseMvc();
         }
     }
