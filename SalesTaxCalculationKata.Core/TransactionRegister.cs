@@ -7,18 +7,14 @@ namespace SalesTaxCalculationKata.Core
 {
     public class TransactionRegister
     {
-        private readonly List<TaxCategoryModel> _taxCategories = new List<TaxCategoryModel>();
+        private readonly List<TaxCategoryModel> _taxCategories;
         private readonly List<TaxModel> _taxes;
 
         private List<OrderItemModel> _currentOrder = new List<OrderItemModel>();
 
-        public TransactionRegister(List<TaxModel> taxes)
+        public TransactionRegister(List<TaxModel> taxes, List<TaxCategoryModel> taxCategories)
         {
             _taxes = taxes;
-        }
-
-        public TransactionRegister(List<TaxModel> taxes, List<TaxCategoryModel> taxCategories) : this(taxes)
-        {
             _taxCategories = taxCategories;
         }
 

@@ -1,109 +1,28 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using SalesTaxCalculationKata.Core;
 using SalesTaxCalculationKata.Core.Models;
 
-namespace SalesTaxCalcuationKata.Core.Tests
+namespace SalesTaxCalculationKata.Core.Tests
 {
     [TestFixture]
     public class TransactionRegisterTests
     {
+        private TestDataProvider _dataProvider;
+
+        [SetUp]
+        public void SetupTests()
+        {
+            _dataProvider = new TestDataProvider();
+        }
+
         [Test]
         public void AddItem_NormalProductWithCategory_NoException()
         {
             var register = SetupStandardRegister();
 
-            var product = CreateSalesExemptProduct();
+            var product = _dataProvider.CreateSalesExemptProduct();
 
             Assert.That(() => register.AddItem(product), Throws.Nothing);
-        }
-
-        private static ProductModel CreateSalesExemptProduct()
-        {
-            var product = new ProductModel
-            {
-                Description = "Book",
-                Price = 12.49m,
-                Categories = new List<CategoryModel>
-                {
-                    new CategoryModel
-                    {
-                        Description = "Books",
-                        CategoryId = 1
-                    }
-                },
-                ProductId = 1
-            };
-
-            return product;
-        }
-
-        private static ProductModel CreateProduct()
-        {
-            var product = new ProductModel
-            {
-                Description = "Music CD",
-                Price = 14.99m,
-                Categories = new List<CategoryModel>
-                {
-                    new CategoryModel
-                    {
-                        Description = "Music",
-                        CategoryId = 5
-                    }
-                },
-                ProductId = 2
-            };
-
-            return product;
-        }
-
-        public static ProductModel CreateImportProduct()
-        {
-            var product = new ProductModel
-            {
-                Description = "Imported Bottle of Perfume",
-                Price = 47.50m,
-                Categories = new List<CategoryModel>
-                {
-                    new CategoryModel
-                    {
-                        Description = "Cosmetics",
-                        CategoryId = 4
-                    },
-                    new CategoryModel
-                    {
-                        Description = "Import",
-                        CategoryId = 6
-                    }
-                }
-            };
-
-            return product;
-        }
-
-        public static ProductModel CreateSalesExemptImportProduct()
-        {
-            var product = new ProductModel
-            {
-                Description = "Imported Box of Chocolates",
-                Price = 10m,
-                Categories = new List<CategoryModel>
-                {
-                    new CategoryModel
-                    {
-                        Description = "Food",
-                        CategoryId = 2
-                    },
-                    new CategoryModel
-                    {
-                        Description = "Import",
-                        CategoryId = 6
-                    }
-                }
-            };
-
-            return product;
         }
 
         [Test]
@@ -111,7 +30,7 @@ namespace SalesTaxCalcuationKata.Core.Tests
         {
             var register = SetupStandardRegister();
 
-            var product = CreateProduct();
+            var product = _dataProvider.CreateProduct();
 
             register.AddItem(product);
 
@@ -128,7 +47,7 @@ namespace SalesTaxCalcuationKata.Core.Tests
         {
             var register = SetupStandardRegister();
 
-            var product = CreateSalesExemptProduct();
+            var product = _dataProvider.CreateSalesExemptProduct();
 
             register.AddItem(product);
 
@@ -145,7 +64,7 @@ namespace SalesTaxCalcuationKata.Core.Tests
         {
             var register = SetupStandardRegister();
 
-            var product = CreateImportProduct();
+            var product = _dataProvider.CreateImportProduct();
 
             register.AddItem(product);
 
@@ -162,7 +81,7 @@ namespace SalesTaxCalcuationKata.Core.Tests
         {
             var register = SetupStandardRegister();
 
-            var product = CreateSalesExemptImportProduct();
+            var product = _dataProvider.CreateSalesExemptImportProduct();
 
             register.AddItem(product);
 
