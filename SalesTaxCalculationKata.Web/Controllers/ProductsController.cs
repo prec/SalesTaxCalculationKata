@@ -27,7 +27,10 @@ namespace SalesTaxCalculationKata.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductModel>>> GetProducts()
         {
-            return await _context.Products.Select(p => _mapper.Map<ProductModel>(p)).ToListAsync();
+          var products = await _context.Products.Select(p => p).ToListAsync();
+          var productModels = products.Select(p => _mapper.Map<ProductModel>(p)).ToList();
+
+          return productModels;
         }
 
         // GET: api/Products/5

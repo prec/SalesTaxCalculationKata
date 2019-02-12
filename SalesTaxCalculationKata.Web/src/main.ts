@@ -1,9 +1,11 @@
 /// <reference types="aurelia-loader-webpack/src/webpack-hot-interface"/>
 // we want font-awesome to load as soon as possible to show the fa-spinner
-import {Aurelia} from 'aurelia-framework'
+import { Aurelia } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
 import environment from './environment';
 import {PLATFORM} from 'aurelia-pal';
 import * as Bluebird from 'bluebird';
+import 'whatwg-fetch';
 
 // remove out if you don't want a Promise polyfill (remove also from webpack.config.js)
 Bluebird.config({ warnings: { wForgottenReturn: false } });
@@ -27,6 +29,22 @@ export function configure(aurelia: Aurelia) {
   if (environment.testing) {
     aurelia.use.plugin(PLATFORM.moduleName('aurelia-testing'));
   }
+
+  const container = aurelia.container;
+  const httpClient = new HttpClient();
+  httpClient.configure(config => {
+    config
+      .useStandardConfiguration()
+      .withBaseUrl("api/")
+      .withDefaults({
+        credentials: "same-origin",
+        headers: {
+          "Accept": "application/json",
+          "X-Requested-With": "Fetch"
+        }
+      });
+  });
+  container.registerInstance(HttpClient, httpClient);
 
   return aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
 }

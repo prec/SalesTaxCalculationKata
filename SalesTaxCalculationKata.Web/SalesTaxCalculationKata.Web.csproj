@@ -15,6 +15,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
+    <None Remove="src\models\category-model.ts" />
+    <None Remove="src\models\product-model.ts" />
+    <None Remove="src\product-list.ts" />
     <None Remove="yarn.lock" />
   </ItemGroup>
   <ItemGroup>
@@ -26,6 +29,11 @@
   <ItemGroup>
     <ProjectReference Include="..\SalesTaxCalculationKata.Core\SalesTaxCalculationKata.Core.csproj" />
     <ProjectReference Include="..\SalesTaxCalculationKata.Data\SalesTaxCalculationKata.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\models\category-model.ts" />
+    <TypeScriptCompile Include="src\models\product-model.ts" />
+    <TypeScriptCompile Include="src\product-list.ts" />
   </ItemGroup>
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
