@@ -1,9 +1,11 @@
 ﻿<template>
-  <h3>${description}</h3>
   <div class="container">
     <div class="row">
-      <div class="col-sm">Price</div>
-      <div class="col-lg">${price}</div>
+      <div class="col-sm">${description}</div>
+      <div class="col-sm">${price}</div>
+      <div class="col-sm">
+        <button click.delegate="selectProduct()">Select</button>
+      </div>
     </div>
   </div>
 </template>
