@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalesTaxCalculationKata.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalesTaxCalculationKata.Data", "SalesTaxCalculationKata.Data\SalesTaxCalculationKata.Data.csproj", "{5719E0C6-AB46-46F9-B80B-FC96EE4F0A00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesTaxCalculationKata.Api", "SalesTaxCalculationKata.Api\SalesTaxCalculationKata.Api.csproj", "{F55EF55E-A66F-4359-9D36-35034FA5E3FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesTaxCalculationKata.Web", "SalesTaxCalculationKata.Web\SalesTaxCalculationKata.Web.csproj", "{F55EF55E-A66F-4359-9D36-35034FA5E3FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

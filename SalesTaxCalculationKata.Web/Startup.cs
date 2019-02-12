@@ -13,7 +13,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SalesTaxCalculationKata.Data;
 
-namespace SalesTaxCalculationKata.Api
+namespace SalesTaxCalculationKata.Web
 {
     public class Startup
     {

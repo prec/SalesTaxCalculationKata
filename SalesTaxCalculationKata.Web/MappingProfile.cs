@@ -3,7 +3,7 @@ using AutoMapper;
 using SalesTaxCalculationKata.Core.Models;
 using SalesTaxCalculationKata.Data.Models;
 
-namespace SalesTaxCalculationKata.Api
+namespace SalesTaxCalculationKata.Web
 {
     public class MappingProfile : Profile
     {
