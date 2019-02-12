@@ -10,15 +10,23 @@ namespace SalesTaxCalculationKata.Core
         private readonly List<TaxCategoryModel> _taxCategories;
         private readonly List<TaxModel> _taxes;
 
-        private List<OrderItemModel> _currentOrder = new List<OrderItemModel>();
-
         public TransactionRegister(List<TaxModel> taxes, List<TaxCategoryModel> taxCategories)
         {
             _taxes = taxes;
             _taxCategories = taxCategories;
         }
 
-        public void AddItem(ProductModel product)
+        public OrderModel AddItems(List<ProductModel> products, OrderModel order)
+        {
+            foreach (var p in products)
+            {
+                order = AddItem(p, order);
+            }
+
+            return order;
+        }
+
+        public OrderModel AddItem(ProductModel product, OrderModel order)
         {
             var totalTax = CalculateTax(product);
 
@@ -28,22 +36,16 @@ namespace SalesTaxCalculationKata.Core
                 SalesTax = totalTax
             };
 
-            _currentOrder.Add(orderItem);
+            order.OrderItems.Add(orderItem);
+
+            return order;
         }
 
-        public OrderModel CompleteSale()
+        public OrderModel CompleteOrder(OrderModel order)
         {
-            var salesTaxTotal = _currentOrder.Sum(oi => oi.SalesTax);
-            var preTaxTotal = _currentOrder.Sum(oi => oi.Product.Price);
-
-            var order = new OrderModel
-            {
-                OrderItems = _currentOrder,
-                SalesTaxTotal = salesTaxTotal,
-                GrandTotal = salesTaxTotal + preTaxTotal
-            };
-
-            _currentOrder = new List<OrderItemModel>();
+            order.SalesTaxTotal = order.OrderItems.Sum(oi => oi.SalesTax);
+            order.GrandTotal = order.OrderItems.Sum(oi => oi.Product.Price) + order.SalesTaxTotal;
+            order.IsComplete = true;
 
             return order;
         }

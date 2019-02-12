@@ -63,6 +63,42 @@ namespace SalesTaxCalculationKata.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SalesTaxCalculationKata.Data.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("GrandTotal");
+
+                    b.Property<bool>("IsComplete");
+
+                    b.Property<decimal>("SalesTaxTotal");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("SalesTaxCalculationKata.Data.Models.OrderItem", b =>
+                {
+                    b.Property<int>("OrderItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("OrderItemId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("SalesTaxCalculationKata.Data.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
@@ -295,6 +331,19 @@ namespace SalesTaxCalculationKata.Data.Migrations
                             CategoryId = 6,
                             TaxId = 2
                         });
+                });
+
+            modelBuilder.Entity("SalesTaxCalculationKata.Data.Models.OrderItem", b =>
+                {
+                    b.HasOne("SalesTaxCalculationKata.Data.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SalesTaxCalculationKata.Data.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SalesTaxCalculationKata.Data.Models.ProductCategory", b =>

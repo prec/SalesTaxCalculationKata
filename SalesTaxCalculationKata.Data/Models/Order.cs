@@ -10,5 +10,6 @@ namespace SalesTaxCalculationKata.Data.Models
         public ICollection<OrderItem> OrderItems { get; set; }
         public decimal SalesTaxTotal { get; set; }
         public decimal GrandTotal { get; set; }
+        public bool IsComplete { get; set; }
     }
 }

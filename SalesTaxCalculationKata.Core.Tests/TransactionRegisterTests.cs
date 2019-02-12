@@ -22,19 +22,19 @@ namespace SalesTaxCalculationKata.Core.Tests
 
             var product = _dataProvider.CreateSalesExemptProduct();
 
-            Assert.That(() => register.AddItem(product), Throws.Nothing);
+            Assert.That(() => register.AddItem(product, new OrderModel()), Throws.Nothing);
         }
 
         [Test]
-        public void FinishSale_NormalProduct_Calculate()
+        public void CompleteOrder_NormalProduct_Calculate()
         {
             var register = SetupStandardRegister();
 
             var product = _dataProvider.CreateProduct();
+            var order = new OrderModel();
 
-            register.AddItem(product);
-
-            var order = register.CompleteSale();
+            order = register.AddItem(product, order);
+            order = register.CompleteOrder(order);
 
             decimal expected = 16.49m;
             decimal actual = order.GrandTotal;
@@ -43,15 +43,15 @@ namespace SalesTaxCalculationKata.Core.Tests
         }
 
         [Test]
-        public void FinishSale_SalesExemptProduct_Calculate()
+        public void CompleteOrder_SalesExemptProduct_Calculate()
         {
             var register = SetupStandardRegister();
 
             var product = _dataProvider.CreateSalesExemptProduct();
+            var order = new OrderModel();
 
-            register.AddItem(product);
-
-            var order = register.CompleteSale();
+            order = register.AddItem(product, order);
+            order = register.CompleteOrder(order);
 
             decimal expected = 12.49m;
             decimal actual = order.GrandTotal;
@@ -60,15 +60,15 @@ namespace SalesTaxCalculationKata.Core.Tests
         }
 
         [Test]
-        public void FinishSale_ImportProduct_Calculate()
+        public void CompleteOrder_ImportProduct_Calculate()
         {
             var register = SetupStandardRegister();
 
             var product = _dataProvider.CreateImportProduct();
+            var order = new OrderModel();
 
-            register.AddItem(product);
-
-            var order = register.CompleteSale();
+            order = register.AddItem(product, order);
+            order = register.CompleteOrder(order);
 
             decimal expected = 54.65m;
             decimal actual = order.GrandTotal;
@@ -77,20 +77,34 @@ namespace SalesTaxCalculationKata.Core.Tests
         }
 
         [Test]
-        public void FinishSale_ImportSalesExemptProduct_Calculate()
+        public void CompleteOrder_ImportSalesExemptProduct_Calculate()
         {
             var register = SetupStandardRegister();
 
             var product = _dataProvider.CreateSalesExemptImportProduct();
+            var order = new OrderModel();
 
-            register.AddItem(product);
-
-            var order = register.CompleteSale();
+            order = register.AddItem(product, order);
+            order = register.CompleteOrder(order);
 
             decimal expected = 10.50m;
             decimal actual = order.GrandTotal;
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void CompleteOrder_NormalOrder_Completes()
+        {
+            var register = SetupStandardRegister();
+
+            var product = _dataProvider.CreateProduct();
+            var order = new OrderModel();
+
+            order = register.AddItem(product, order);
+            order = register.CompleteOrder(order);
+
+            Assert.IsTrue(order.IsComplete);
         }
 
         private static TransactionRegister SetupStandardRegister()
