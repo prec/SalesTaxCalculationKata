@@ -7,9 +7,12 @@ namespace SalesTaxCalculationKata.Data
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<TaxCategory> TaxExemptions { get; set; }
-        public DbSet<Tax> Taxes { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<TaxCategory> TaxCategories { get; set; }
+        public DbSet<Tax> Taxes { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
