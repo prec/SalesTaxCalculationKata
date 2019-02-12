@@ -1,8 +1,11 @@
 <template>
   <require from="./styles/styles.scss"></require>
   <require from="./product-list"></require>
+  <require from="./order"></require>
 
   <h1>${heading}</h1>
   <h2>Create Your Order</h2>
   <product-list products.bind="products"></product-list>
+  <h2>Order Details</h2>
+  <order order-id.bind="order.orderId" sales-tax-total.bind="order.salesTaxTotal" grand-total.bind="order.grandTotal" is-complete.bind="order.isComplete"></order>
 </template>

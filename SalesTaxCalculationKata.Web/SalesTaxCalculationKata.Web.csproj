@@ -18,6 +18,7 @@
     <None Remove="src\models\category-model.ts" />
     <None Remove="src\models\order-model.ts" />
     <None Remove="src\models\product-model.ts" />
+    <None Remove="src\order.ts" />
     <None Remove="src\product-list.ts" />
     <None Remove="yarn.lock" />
   </ItemGroup>
@@ -35,6 +36,7 @@
     <TypeScriptCompile Include="src\models\category-model.ts" />
     <TypeScriptCompile Include="src\models\order-model.ts" />
     <TypeScriptCompile Include="src\models\product-model.ts" />
+    <TypeScriptCompile Include="src\order.ts" />
     <TypeScriptCompile Include="src\product-list.ts" />
   </ItemGroup>
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
