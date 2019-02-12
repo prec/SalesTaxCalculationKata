@@ -26,6 +26,20 @@ namespace SalesTaxCalculationKata.Core.Tests
         }
 
         [Test]
+        public void AddItems_NormalProductsWithCategory_NoException()
+        {
+            var register = SetupStandardRegister();
+
+            var products = new List<ProductModel>
+            {
+                _dataProvider.CreateProduct(),
+                _dataProvider.CreateProduct()
+            };
+
+            Assert.That(() => register.AddItems(products, new OrderModel()), Throws.Nothing);
+        }
+
+        [Test]
         public void CompleteOrder_NormalProduct_Calculate()
         {
             var register = SetupStandardRegister();
