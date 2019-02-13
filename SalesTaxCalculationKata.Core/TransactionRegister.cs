@@ -69,12 +69,13 @@ namespace SalesTaxCalculationKata.Core
                 select t;
 
             var totalTax = applicableTaxes.Sum(tax => product.Price * tax.Rate);
-            return RoundToNearestNickel(totalTax);
+            var roundedTax = RoundToNearestNickel(totalTax);
+            return roundedTax;
         }
 
         private static decimal RoundToNearestNickel(decimal number)
         {
-            return Math.Round(number*20, MidpointRounding.AwayFromZero)/20;
+            return Math.Ceiling(number*20)/20;
         }
     }
 }
