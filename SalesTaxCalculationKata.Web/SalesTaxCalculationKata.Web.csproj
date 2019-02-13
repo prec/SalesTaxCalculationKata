@@ -60,4 +60,7 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+  <Target Name="NpmInstall" BeforeTargets="Build">
+    <Exec Command="npm install"/>
+  </Target>
 </Project>
