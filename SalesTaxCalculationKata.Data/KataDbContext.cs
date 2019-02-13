@@ -5,6 +5,8 @@ namespace SalesTaxCalculationKata.Data
 {
     public class KataDbContext : DbContext
     {
+        private const string ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=SalesTaxCalculationKata;Trusted_Connection=True;";
+
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
@@ -18,7 +20,7 @@ namespace SalesTaxCalculationKata.Data
             optionsBuilder
                 .UseLazyLoadingProxies()
                 .UseSqlServer(
-                    @"Server=(localdb)\MSSQLLocalDB;Database=SalesTaxCalculationKata;Trusted_Connection=True;");
+                    ConnectionString);
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             SetupProductCategoryJoinTable(modelBuilder);
