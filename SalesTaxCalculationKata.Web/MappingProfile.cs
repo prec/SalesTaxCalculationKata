@@ -26,29 +26,43 @@ namespace SalesTaxCalculationKata.Web
             CreateMap<Order, OrderModel>();
             CreateMap<OrderModel, Order>()
                 .ForMember(dest => dest.OrderItems, opt => opt.Ignore())
-                .AfterMap((dest, src) =>
+                .AfterMap(PopulateOrderItems);
+        }
+
+        private static void PopulateOrderItems(OrderModel dest, Order src)
+        {
+            foreach (var oi in dest.OrderItems)
+            {
+                PopulateOrderItem(src, oi);
+            }
+        }
+
+        private static void PopulateOrderItem(Order src, OrderItemModel oi)
+        {
+            bool isOrderItemPersisted = oi.OrderItemId == 0;
+
+            if (isOrderItemPersisted)
+            {
+                src.OrderItems.Add(new OrderItem
                 {
-                    foreach (var oi in dest.OrderItems)
-                    {
-                        if (oi.OrderItemId == 0)
-                        {
-                            src.OrderItems.Add(new OrderItem
-                            {
-                                OrderId = src.OrderId,
-                                ProductId = oi.ProductId,
-                                SalesTax = oi.SalesTax
-                            });
-                        }
-                        else
-                        {
-                            var item = src.OrderItems.SingleOrDefault(x => x.OrderItemId == oi.OrderItemId);
-                            item.ProductId = oi.ProductId;
-                            item.OrderItemId = oi.OrderItemId;
-                            item.OrderId = src.OrderId;
-                            item.SalesTax = oi.SalesTax;
-                        }
-                    }
+                    OrderId = src.OrderId,
+                    ProductId = oi.ProductId,
+                    SalesTax = oi.SalesTax
                 });
+            }
+            else
+            {
+                MapOrder(src, oi);
+            }
+        }
+
+        private static void MapOrder(Order src, OrderItemModel oi)
+        {
+            var item = src.OrderItems.Single(x => x.OrderItemId == oi.OrderItemId);
+            item.ProductId = oi.ProductId;
+            item.OrderItemId = oi.OrderItemId;
+            item.OrderId = src.OrderId;
+            item.SalesTax = oi.SalesTax;
         }
 
         private void CreateProductMaps()

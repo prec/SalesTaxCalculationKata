@@ -12,7 +12,7 @@ namespace SalesTaxCalculationKata.Web.Controllers
 
         public RouteDebugController(IActionDescriptorCollectionProvider actionDescriptorCollectionProvider)
         {
-            this._actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
+            _actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
         }
 
         // GET: api/RouteDebug
@@ -20,13 +20,15 @@ namespace SalesTaxCalculationKata.Web.Controllers
         [HttpPut]
         public IActionResult Get()
         {
-            var routes = _actionDescriptorCollectionProvider.ActionDescriptors.Items.Select(x => new {
+            var routes = _actionDescriptorCollectionProvider.ActionDescriptors.Items.Select(x => new
+            {
                 Action = x.RouteValues["Action"],
                 Controller = x.RouteValues["Controller"],
-                Name = x.AttributeRouteInfo?.Name,
-                Template = x.AttributeRouteInfo?.Template,
+                x.AttributeRouteInfo?.Name,
+                x.AttributeRouteInfo?.Template,
                 Contraint = x.ActionConstraints
             }).ToList();
+
             return Ok(routes);
         }
     }

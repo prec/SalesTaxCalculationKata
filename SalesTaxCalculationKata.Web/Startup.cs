@@ -42,25 +42,8 @@ namespace SalesTaxCalculationKata.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                  HotModuleReplacement = true, 
-                  ConfigFile="webpack.netcore.config.js",
-                  HotModuleReplacementClientOptions = new Dictionary<string,string>{
-                    {"reload", "true"}
-                  }
-                });
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
+            ConfigureEnvironmentSpecifics(app, env);
             RecreateDatabase(app);
-
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -73,6 +56,27 @@ namespace SalesTaxCalculationKata.Web
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+        }
+
+        private static void ConfigureEnvironmentSpecifics(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true,
+                    ConfigFile = "webpack.netcore.config.js",
+                    HotModuleReplacementClientOptions = new Dictionary<string, string>
+                    {
+                        {"reload", "true"}
+                    }
+                });
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
         }
 
         private static void RecreateDatabase(IApplicationBuilder app)

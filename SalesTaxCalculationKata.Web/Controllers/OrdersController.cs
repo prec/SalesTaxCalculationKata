@@ -45,38 +45,6 @@ namespace SalesTaxCalculationKata.Web.Controllers
             return _mapper.Map<OrderModel>(order);
         }
 
-        // PUT: api/Orders/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, OrderModel orderModel)
-        {
-            var order = _mapper.Map<Order>(orderModel);
-
-            if (id != order.OrderId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(order).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Orders
         [HttpPost]
         public async Task<ActionResult<OrderModel>> PostOrder()
@@ -151,11 +119,6 @@ namespace SalesTaxCalculationKata.Web.Controllers
             await _context.SaveChangesAsync();
 
             return _mapper.Map<OrderModel>(order);
-        }
-
-        private bool OrderExists(int id)
-        {
-            return _context.Orders.Any(e => e.OrderId == id);
         }
     }
 }
