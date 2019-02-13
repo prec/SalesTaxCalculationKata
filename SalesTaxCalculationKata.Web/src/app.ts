@@ -8,13 +8,14 @@ import { inject, View } from "aurelia-framework";
 import { Product } from "./components/product";
 import { EventAggregator, Subscription } from "aurelia-event-aggregator";
 import { OrderCreateMessage, ProductSelectMessage } from "./messages";
+import { OrderItemModel } from "./models/order-model";
 
 @inject(ProductService, OrderService, EventAggregator)
 export class App {
-  products: Array<Product>;
+  products: Array<Product> = [];
   order: Order;
-  orderItems: Array<OrderItem>;
-  receiptItems: Array<ReceiptItem>;
+  orderItems: Array<OrderItem> = [];
+  receiptItems: Array<ReceiptItem> = [];
 
   subscription: Subscription;
 
@@ -23,22 +24,12 @@ export class App {
   }
 
   async attached() {
-    const products = await this.productService.get();
 
-    this.products = [];
-    this.orderItems = [];
-    this.receiptItems = [];
-
-    for (let p of products) {
-      this.products.push(p as Product);
-    }
+    await this.updateProducts();
 
     this.subscription = this.eventAggregator.subscribe(ProductSelectMessage,
       message => {
-        this.order.orderId = message.order.orderId;
-        this.order.salesTaxTotal = message.order.salesTaxTotal;
-        this.order.grandTotal = message.order.grandTotal;
-        this.order.isComplete = message.order.isComplete;
+          this.updateOrderDetails(message);
 
         this.orderItems.splice(0);
         this.receiptItems.splice(0);
@@ -47,21 +38,7 @@ export class App {
 
         for (let oi of message.order.orderItems) {
           this.orderItems.push(oi);
-
-          if (receipt[oi.productId] != null) {
-            receipt[oi.productId].numberPurchased += 1;
-            receipt[oi.productId].lineTotal += oi.productPrice + oi.salesTax;
-          } else {
-            receipt[oi.productId] = {
-              orderItemId: oi.orderItemId,
-              productId: oi.productId,
-              productPrice: oi.productPrice,
-              productDescription: oi.productDescription,
-              salesTax: oi.salesTax,
-              numberPurchased: 1,
-              lineTotal: oi.productPrice + oi.salesTax
-            };
-          }
+          this.generateReceipt(oi, receipt);
         }
 
         for (let ri in receipt) {
@@ -72,6 +49,40 @@ export class App {
     await this.createOrder();
   }
 
+  async updateProducts() {
+    const products = await this.productService.get();
+
+    for (let p of products) {
+      this.products.push(p as Product);
+     }
+  }
+
+  updateOrderDetails(message: ProductSelectMessage) {
+    this.order.orderId = message.order.orderId;
+    this.order.salesTaxTotal = message.order.salesTaxTotal;
+    this.order.grandTotal = message.order.grandTotal;
+    this.order.isComplete = message.order.isComplete;
+  }
+
+  generateReceipt(orderItem: OrderItemModel, receipt) {
+    const productExists = receipt[orderItem.productId] != null;
+
+    if (productExists) {
+      receipt[orderItem.productId].numberPurchased += 1;
+      receipt[orderItem.productId].lineTotal += orderItem.productPrice + orderItem.salesTax;
+    } else {
+      receipt[orderItem.productId] = {
+        orderItemId: orderItem.orderItemId,
+        productId: orderItem.productId,
+        productPrice: orderItem.productPrice,
+        productDescription: orderItem.productDescription,
+        salesTax: orderItem.salesTax,
+        numberPurchased: 1,
+        lineTotal: orderItem.productPrice + orderItem.salesTax
+      } as ReceiptItem;
+    }
+  }
+
   detached() {
     this.subscription.dispose();
   }
@@ -80,9 +91,6 @@ export class App {
     const order = await this.orderService.create();
     this.order = order as Order;
 
-    const message = new OrderCreateMessage();
-    message.order = order;
-
-    this.eventAggregator.publish(message);
+    this.eventAggregator.publish(new OrderCreateMessage(order));
   }
 }

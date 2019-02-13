@@ -28,10 +28,6 @@ export class Product {
   async selectProduct() {
     const order = await this.orderService.addItem(this.orderId, this.productId);
 
-    const message = new ProductSelectMessage();
-    message.order = order;
-    message.selectedProduct = this;
-
-    this.eventAggregator.publish(message);
+    this.eventAggregator.publish(new ProductSelectMessage(this, order));
   }
 }

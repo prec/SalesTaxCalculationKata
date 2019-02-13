@@ -2,10 +2,9 @@
 import { OrderModel } from "./models/order-model";
 
 export class ProductSelectMessage {
-  selectedProduct: ProductModel;
-  order: OrderModel;
+  constructor(public selectedProduct: ProductModel, public order: OrderModel) { }
 }
 
 export class OrderCreateMessage {
-  order: OrderModel
+    constructor(public order) { }
 }

@@ -10,18 +10,18 @@ export class OrderService {
 
   async get(id: number) : Promise<OrderModel> {
     const response = await this.httpClient.fetch(`Orders/${id}`);
-    const data = await response.json();
+    const order = await response.json();
 
-    return data as OrderModel;
+    return order as OrderModel;
   }
 
   async create() : Promise<OrderModel> {
     const response = await this.httpClient.fetch("Orders", {
         method: "post"
     });
-    const data = await response.json();
+    const order = await response.json();
 
-    return data as OrderModel;
+    return order as OrderModel;
   }
 
   async addItem(orderId: number, productId: number) : Promise<OrderModel> {
@@ -33,8 +33,8 @@ export class OrderService {
       method: "post",
       body: JSON.stringify(payload)
     });
-    const data = await response.json();
+    const order = await response.json();
 
-    return data as OrderModel;
+    return order as OrderModel;
   }
 }
