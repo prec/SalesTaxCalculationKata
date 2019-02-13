@@ -1,0 +1,13 @@
+﻿<template>
+  <require from="./product"></require>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <hr />
+      <product repeat.for="product of products"
+               product-id.bind="product.productId"
+               description.bind="product.description"
+               price.bind="product.price"></product>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,12 @@
+﻿<template>
+  <require from="../converters/currency-format"></require>
+
+  <div class="row">
+    <div class="col-md-6">${description}</div>
+    <div class="col-md-3">${price | currencyFormat}</div>
+    <div class="col-md-3">
+      <button click.delegate="selectProduct()">Add To Basket</button>
+    </div>
+  </div>
+  <hr />
+</template>

@@ -1,0 +1,39 @@
+<template>
+  <require from="./styles/styles.scss"></require>
+  <require from="./components/product-list"></require>
+  <require from="./components/order"></require>
+  <require from="./converters/currency-format"></require>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Available Products</h2>
+        <product-list products.bind="products"></product-list>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <h3>Basket</h3>
+        <ul>
+          <li repeat.for="oi of orderItems">1 ${oi.productDescription} at ${oi.productPrice | currencyFormat}</li>
+        </ul>
+      </div>
+      <div class="col-md-5">
+        <h3>Receipt</h3>
+        <ul>
+          <li repeat.for="ri of receiptItems">${ri.productDescription}: ${ri.lineTotal | currencyFormat} <span if.bind="ri.numberPurchased > 1">(${ri.numberPurchased} @ ${ri.combinedTotal | currencyFormat})</span></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+        <h3>Totals</h3>
+        <order order-id.bind="order.orderId"
+               sales-tax-total.bind="order.salesTaxTotal"
+               grand-total.bind="order.grandTotal"
+               is-complete.bind="order.isComplete"></order>
+      </div>
+    </div>
+  </div>
+</template>
