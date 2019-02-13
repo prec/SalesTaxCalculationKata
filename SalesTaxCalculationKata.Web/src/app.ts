@@ -71,6 +71,8 @@ export class App {
       receipt[orderItem.productId].numberPurchased += 1;
       receipt[orderItem.productId].lineTotal += orderItem.productPrice + orderItem.salesTax;
     } else {
+      const combinedTotal = orderItem.productPrice + orderItem.salesTax;
+
       receipt[orderItem.productId] = {
         orderItemId: orderItem.orderItemId,
         productId: orderItem.productId,
@@ -78,7 +80,8 @@ export class App {
         productDescription: orderItem.productDescription,
         salesTax: orderItem.salesTax,
         numberPurchased: 1,
-        lineTotal: orderItem.productPrice + orderItem.salesTax
+        combinedTotal: combinedTotal,
+        lineTotal: combinedTotal
       } as ReceiptItem;
     }
   }

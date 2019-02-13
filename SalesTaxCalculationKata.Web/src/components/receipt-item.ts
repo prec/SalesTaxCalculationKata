@@ -6,6 +6,7 @@ export class ReceiptItem {
   @bindable productPrice: number;
   @bindable productDescription: string;
   @bindable salesTax: number;
+  @bindable combinedTotal: number;
   @bindable numberPurchased: number;
   @bindable lineTotal: number;
 }
