@@ -11,7 +11,6 @@ import { OrderCreateMessage, ProductSelectMessage } from "./messages";
 
 @inject(ProductService, OrderService, EventAggregator)
 export class App {
-  heading = "Sales Tax Calculator Kata";
   products: Array<Product>;
   order: Order;
   orderItems: Array<OrderItem>;
@@ -70,7 +69,7 @@ export class App {
         }
       });
 
-
+    await this.createOrder();
   }
 
   detached() {
