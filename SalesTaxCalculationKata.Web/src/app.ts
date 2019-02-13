@@ -69,6 +69,12 @@ export class App {
           this.receiptItems.push(receipt[ri]);
         }
       });
+
+
+  }
+
+  detached() {
+    this.subscription.dispose();
   }
 
   async createOrder() {

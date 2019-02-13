@@ -1,6 +1,8 @@
 ﻿<template>
+  <require from="./currency-format"></require>
+
   <div>OrderId: ${orderId}</div>
-  <div>Sales Tax Total: ${salesTaxTotal}</div>
-  <div>Grand Total: ${grandTotal}</div>
+  <div>Sales Tax Total: ${salesTaxTotal | currencyFormat}</div>
+  <div>Grand Total: ${grandTotal | currencyFormat}</div>
   <div>Is Complete: ${isComplete}</div>
 </template>

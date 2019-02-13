@@ -1,8 +1,10 @@
 ﻿<template>
+  <require from="./currency-format"></require>
+
   <div class="container">
     <div class="row">
       <div class="col-sm">${description}</div>
-      <div class="col-sm">${price.toFixed(2)}</div>
+      <div class="col-sm">${price | currencyFormat}</div>
       <div class="col-sm">
         <button click.delegate="selectProduct()">Select</button>
       </div>

@@ -2,6 +2,7 @@
   <require from="./styles/styles.scss"></require>
   <require from="./product-list"></require>
   <require from="./order"></require>
+  <require from="./currency-format"></require>
 
   <h1>${heading}</h1>
   <h2>Create Your Order</h2>
@@ -16,11 +17,11 @@
 
   <h3>Basket</h3>
   <ul>
-    <li repeat.for="oi of orderItems">1 ${oi.productDescription} at ${oi.productPrice.toFixed(2)}</li>
+    <li repeat.for="oi of orderItems">1 ${oi.productDescription} at ${oi.productPrice | currencyFormat}</li>
   </ul>
 
   <h3>Receipt</h3>
   <ul>
-    <li repeat.for="ri of receiptItems">${ri.productDescription}: ${ri.lineTotal.toFixed(2)} <span if.bind="ri.numberPurchased > 1">(${ri.numberPurchased} @ ${ri.productPrice.toFixed(2)})</span></li>
+    <li repeat.for="ri of receiptItems">${ri.productDescription}: ${ri.lineTotal | currencyFormat} <span if.bind="ri.numberPurchased > 1">(${ri.numberPurchased} @ ${ri.productPrice | currencyFormat})</span></li>
   </ul>
 </template>

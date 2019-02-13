@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
+    <None Remove="src\currency-format.ts" />
     <None Remove="src\messages.ts" />
     <None Remove="src\models\category-model.ts" />
     <None Remove="src\models\order-model.ts" />
@@ -36,6 +37,7 @@
     <ProjectReference Include="..\SalesTaxCalculationKata.Data\SalesTaxCalculationKata.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="src\currency-format.ts" />
     <TypeScriptCompile Include="src\messages.ts" />
     <TypeScriptCompile Include="src\models\category-model.ts" />
     <TypeScriptCompile Include="src\models\order-model.ts" />
