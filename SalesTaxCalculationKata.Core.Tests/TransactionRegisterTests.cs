@@ -108,6 +108,40 @@ namespace SalesTaxCalculationKata.Core.Tests
         }
 
         [Test]
+        public void CompleteOrder_ScenarioOne_Calculate()
+        {
+            var register = SetupStandardRegister();
+
+            var products = _dataProvider.CreateScenarioOneProducts();
+            var order = new OrderModel();
+
+            order = register.AddItems(products, order);
+            order = register.CompleteOrder(order);
+
+            decimal expected = 42.32m;
+            decimal actual = order.GrandTotal;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void CompleteOrder_ScenarioTwo_Calculate()
+        {
+            var register = SetupStandardRegister();
+
+            var products = _dataProvider.CreateScenarioTwoProducts();
+            var order = new OrderModel();
+
+            order = register.AddItems(products, order);
+            order = register.CompleteOrder(order);
+
+            decimal expected = 65.15m;
+            decimal actual = order.GrandTotal;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
         public void CompleteOrder_ScenarioThree_Calculate()
         {
             var register = SetupStandardRegister();

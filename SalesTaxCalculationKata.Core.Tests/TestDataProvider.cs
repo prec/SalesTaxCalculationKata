@@ -93,6 +93,43 @@ namespace SalesTaxCalculationKata.Core.Tests
             return product;
         }
 
+        public List<ProductModel> CreateScenarioOneProducts()
+        {
+            var productList = new List<ProductModel>
+            {
+                CreateSalesExemptProduct(),
+                CreateSalesExemptProduct(),
+                CreateProduct(),
+                new ProductModel
+                {
+                    Description = "Chocolate Bar",
+                    Price = 0.85m,
+                    Categories = new List<CategoryModel>
+                    {
+                        new CategoryModel
+                        {
+                            Description = "Food",
+                            CategoryId = 2
+                        }
+                    },
+                    ProductId = 1
+                }
+            };
+
+            return productList;
+        }
+
+        public List<ProductModel> CreateScenarioTwoProducts()
+        {
+            var productList = new List<ProductModel>
+            {
+                CreateSalesExemptImportProduct(),
+                CreateImportProduct()
+            };
+
+            return productList;
+        }
+
         public List<ProductModel> CreateScenarioThreeProducts()
         {
             var productList = new List<ProductModel>
