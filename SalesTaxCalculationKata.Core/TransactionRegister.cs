@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SalesTaxCalculationKata.Core.Extensions;
 using SalesTaxCalculationKata.Core.Models;
 
 namespace SalesTaxCalculationKata.Core
@@ -45,14 +46,6 @@ namespace SalesTaxCalculationKata.Core
             return order;
         }
 
-        private static OrderModel CalculateOrderTotals(OrderModel order)
-        {
-            order.SalesTaxTotal = order.OrderItems.Sum(oi => oi.SalesTax);
-            order.GrandTotal = order.OrderItems.Sum(oi => oi.ProductPrice) + order.SalesTaxTotal;
-
-            return order;
-        }
-
         public OrderModel CompleteOrder(OrderModel order)
         {
             order = CalculateOrderTotals(order);
@@ -69,13 +62,18 @@ namespace SalesTaxCalculationKata.Core
                 select t;
 
             var totalTax = applicableTaxes.Sum(tax => product.Price * tax.Rate);
-            var roundedTax = RoundToNearestNickel(totalTax);
+            var roundedTax = totalTax.RoundToNearestNickel();
             return roundedTax;
         }
 
-        private static decimal RoundToNearestNickel(decimal number)
+        private static OrderModel CalculateOrderTotals(OrderModel order)
         {
-            return Math.Ceiling(number*20)/20;
+            order.SalesTaxTotal = order.OrderItems.Sum(oi => oi.SalesTax);
+            order.GrandTotal = order.OrderItems.Sum(oi => oi.ProductPrice) + order.SalesTaxTotal;
+
+            return order;
         }
+
+        
     }
 }
