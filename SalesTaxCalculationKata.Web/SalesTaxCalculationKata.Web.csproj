@@ -37,15 +37,15 @@
     <ProjectReference Include="..\SalesTaxCalculationKata.Data\SalesTaxCalculationKata.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\currency-format.ts" />
+    <TypeScriptCompile Include="src\converters\currency-format.ts" />
     <TypeScriptCompile Include="src\messages.ts" />
     <TypeScriptCompile Include="src\models\category-model.ts" />
     <TypeScriptCompile Include="src\models\order-model.ts" />
     <TypeScriptCompile Include="src\models\product-model.ts" />
-    <TypeScriptCompile Include="src\order-item.ts" />
-    <TypeScriptCompile Include="src\order.ts" />
-    <TypeScriptCompile Include="src\product-list.ts" />
-    <TypeScriptCompile Include="src\receipt-item.ts" />
+    <TypeScriptCompile Include="src\components\order-item.ts" />
+    <TypeScriptCompile Include="src\components\order.ts" />
+    <TypeScriptCompile Include="src\components\product-list.ts" />
+    <TypeScriptCompile Include="src\components\receipt-item.ts" />
   </ItemGroup>
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
@@ -61,6 +61,6 @@
     </ItemGroup>
   </Target>
   <Target Name="NpmInstall" BeforeTargets="Build">
-    <Exec Command="npm install"/>
+    <Exec Command="npm install" />
   </Target>
 </Project>

@@ -1,11 +1,11 @@
 import "bootstrap";
 import { ProductService } from "./services/product-service";
 import { OrderService } from "./services/order-service";
-import { Order } from "./order";
-import { OrderItem } from "./order-item";
-import { ReceiptItem } from "./receipt-item";
+import { Order } from "./components/order";
+import { OrderItem } from "./components/order-item";
+import { ReceiptItem } from "./components/receipt-item";
 import { inject, View } from "aurelia-framework";
-import { Product } from "product";
+import { Product } from "./components/product";
 import { EventAggregator, Subscription } from "aurelia-event-aggregator";
 import { OrderCreateMessage, ProductSelectMessage } from "./messages";
 

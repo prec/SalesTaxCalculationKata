@@ -1,6 +1,6 @@
 ﻿import { bindable, inject } from "aurelia-framework";
 import { EventAggregator, Subscription } from "aurelia-event-aggregator";
-import { ProductSelectMessage } from "./messages";
+import { ProductSelectMessage } from "../messages";
 
 @inject(EventAggregator)
 export class Order {

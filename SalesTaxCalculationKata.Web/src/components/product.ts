@@ -1,8 +1,8 @@
-﻿import { CategoryModel } from "./models/category-model";
-import { OrderService } from "./services/order-service";
+﻿import { CategoryModel } from "../models/category-model";
+import { OrderService } from "../services/order-service";
 import { bindable, inject } from "aurelia-framework";
 import { EventAggregator, Subscription } from "aurelia-event-aggregator";
-import { ProductSelectMessage, OrderCreateMessage } from "./messages";
+import { ProductSelectMessage, OrderCreateMessage } from "../messages";
 
 @inject(OrderService, EventAggregator)
 export class Product {
