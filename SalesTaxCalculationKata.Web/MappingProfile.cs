@@ -35,7 +35,8 @@ namespace SalesTaxCalculationKata.Web
                             src.OrderItems.Add(new OrderItem
                             {
                                 OrderId = src.OrderId,
-                                ProductId = oi.ProductId
+                                ProductId = oi.ProductId,
+                                SalesTax = oi.SalesTax
                             });
                         }
                         else
@@ -44,6 +45,7 @@ namespace SalesTaxCalculationKata.Web
                             item.ProductId = oi.ProductId;
                             item.OrderItemId = oi.OrderItemId;
                             item.OrderId = src.OrderId;
+                            item.SalesTax = oi.SalesTax;
                         }
                     }
                 });

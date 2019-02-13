@@ -15,11 +15,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
+    <None Remove="src\messages.ts" />
     <None Remove="src\models\category-model.ts" />
     <None Remove="src\models\order-model.ts" />
     <None Remove="src\models\product-model.ts" />
+    <None Remove="src\order-item.ts" />
     <None Remove="src\order.ts" />
     <None Remove="src\product-list.ts" />
+    <None Remove="src\receipt-item.ts" />
     <None Remove="yarn.lock" />
   </ItemGroup>
   <ItemGroup>
@@ -33,11 +36,14 @@
     <ProjectReference Include="..\SalesTaxCalculationKata.Data\SalesTaxCalculationKata.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="src\messages.ts" />
     <TypeScriptCompile Include="src\models\category-model.ts" />
     <TypeScriptCompile Include="src\models\order-model.ts" />
     <TypeScriptCompile Include="src\models\product-model.ts" />
+    <TypeScriptCompile Include="src\order-item.ts" />
     <TypeScriptCompile Include="src\order.ts" />
     <TypeScriptCompile Include="src\product-list.ts" />
+    <TypeScriptCompile Include="src\receipt-item.ts" />
   </ItemGroup>
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->

@@ -5,7 +5,22 @@
 
   <h1>${heading}</h1>
   <h2>Create Your Order</h2>
+  <button click.delegate="createOrder()">Create New Order</button>
+  <h2>Available Products</h2>
   <product-list products.bind="products"></product-list>
   <h2>Order Details</h2>
-  <order order-id.bind="order.orderId" sales-tax-total.bind="order.salesTaxTotal" grand-total.bind="order.grandTotal" is-complete.bind="order.isComplete"></order>
+  <order order-id.bind="order.orderId"
+         sales-tax-total.bind="order.salesTaxTotal.toFixed(2)"
+         grand-total.bind="order.grandTotal.toFixed(2)"
+         is-complete.bind="order.isComplete"></order>
+
+  <h3>Basket</h3>
+  <ul>
+    <li repeat.for="oi of orderItems">1 ${oi.productDescription} at ${oi.productPrice.toFixed(2)}</li>
+  </ul>
+
+  <h3>Receipt</h3>
+  <ul>
+    <li repeat.for="ri of receiptItems">${ri.productDescription}: ${ri.lineTotal.toFixed(2)} <span if.bind="ri.numberPurchased > 1">(${ri.numberPurchased} @ ${ri.productPrice.toFixed(2)})</span></li>
+  </ul>
 </template>

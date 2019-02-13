@@ -90,6 +90,8 @@ namespace SalesTaxCalculationKata.Data.Migrations
 
                     b.Property<int>("ProductId");
 
+                    b.Property<decimal>("SalesTax");
+
                     b.HasKey("OrderItemId");
 
                     b.HasIndex("OrderId");

@@ -10,5 +10,6 @@ namespace SalesTaxCalculationKata.Data.Models
         public virtual Product Product { get; set; }
         public int OrderId { get; set; }
         public virtual Order Order { get; set; }
+        public decimal SalesTax { get; set; }
     }
 }
